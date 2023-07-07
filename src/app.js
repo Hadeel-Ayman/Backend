@@ -1,21 +1,26 @@
+// import libraries
 const express = require('express')
 const app = express()
 let bodyParser = require('body-parser')
+const cors = require('cors')
+const cookieParser = require('cookie-parser')
+const dotenv = require('dotenv')
+dotenv.config()
+const conn = require('../db/mongoose')
+
+
 const port = process.env.PORT || 5000
 
 app.get('/', (req, res) => {
     res.send('hello in platform')
 })
 
-const cookieParser = require('cookie-parser')
-const cors = require('cors')
 
 app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
-require('../db/mongoose')
 
 
 // auth
@@ -59,4 +64,6 @@ const subCategory = require('../routes/SubcategoryRoutes')
 app.use(subCategory)
 
 
-app.listen(port, () => console.log(`Localhost is ${port}`))
+conn().then(() => {
+    app.listen(port, () => console.log(`Localhost is ${port}`))
+})

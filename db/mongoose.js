@@ -1,2 +1,13 @@
 const monogoose = require('mongoose')
-monogoose.connect('mongodb://127.0.0.1:27017/GraduteProject')
+
+
+const connectDB = async () => {
+    try {
+        const conn = await monogoose.connect(process.env.MONG_URI)
+        console.log(`MongoDB connected : ${conn.connection.host}`)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports = connectDB
