@@ -9,7 +9,7 @@ dotenv.config()
 const conn = require('../db/mongoose')
 
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 3000
 
 app.get('/', (req, res) => {
     res.send('hello in platform')
